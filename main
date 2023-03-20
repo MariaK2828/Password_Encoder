@@ -1,0 +1,63 @@
+# p = PasswordProtector()
+class PasswordProtector:
+    def __init__(self):
+        self.password = input("Enter the password you want to encode: ")
+        self.encode_type = input("How would you like to encode your password: numbers or cat latin? ")
+        if self.encode_type not in ["numbers", "cat latin"]:
+            raise AssertionError("Wrong Encoding Type")
+        
+    def encode(self):
+        if self.encode_type == "cat latin":
+            new_word = ""
+            
+            # encodes word using cat latin rules
+            for i in self.password:
+                if i.isdigit():
+                    i = "x"
+                # if the letter is not a vowel
+                elif i.isalpha() == False and i.isdigit() == False:
+                    i = "_"
+                elif i not in ["a","e","i","o","u","y"]:
+                    # add a behind it
+                    i = i + "o"
+                # if the letter is o vowel
+                else:
+                    # add an e behind it
+                    i = i + "e"
+                
+                # updates new word    
+                new_word += i
+            
+            # adds a w to the end of the word
+            new_word += "w"
+            # turns the string into a list 
+            letter_list = list(new_word)
+            # replaces the first letter with an M
+            letter_list[0] = "M"
+            # Joins the list
+            print("".join(letter_list))
+        
+        elif self.encode_type == "numbers":
+            new_word = ""
+            # changes all letters to lowercase so the word is easier to work with
+            psswrd = self.password.lower()
+            # dictionary of corresponding letters and numbers
+            key_dict = {"a":"4", "e":"3", "s":"5", "b":"8", "i":"1", "t":"7", "o":"0"}
+            
+            # for loop to replace letters
+            for i in psswrd:
+                # if i is one of the letters in the dictionary
+                if i in key_dict.keys():
+                    # it gets replaced with the corresponding value 
+                    i = key_dict.get(i)
+                    
+                # if i is a number, it becomes an X
+                elif i.isdigit():
+                    i = "X"
+                # new word gets updated each iteration
+                new_word += str(i)
+            print(new_word)
+                
+        
+    def display(self):
+        self.encode()
